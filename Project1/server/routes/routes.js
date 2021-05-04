@@ -5,7 +5,7 @@ const postsController = require("../controllers/post");
 const { verifyToken } = require("../middlewares/auth");
 
 router.get("/", (req, res) => {
-  res.send("Wellcome to Nodejs and Express!!!");
+    res.send("Wellcome to Nodejs and Express!!!");
 });
 
 // @route POST api/v1/auth/register
@@ -32,5 +32,10 @@ router.post("/posts", verifyToken, postsController.createPost);
 // @des Update post
 // @access Private
 router.put("/posts/:id", verifyToken, postsController.updatePost);
+
+// @route DELETE api/v1/posts
+// @des Delete post
+// @access Private
+router.delete("/posts/:id", verifyToken, postsController.deletePost);
 
 module.exports = router;
