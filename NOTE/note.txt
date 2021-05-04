@@ -1,0 +1,6 @@
+---NODEJS-EXPRESS---
+
+Install nodejs express
+npm i express jsonwebtoken mongoose dotenv argon2 cors body-parse
+-> install nodemon
+
