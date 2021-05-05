@@ -1,12 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const usersController = require("../controllers/user");
-const postsController = require("../controllers/post");
+const usersController = require("../api/auth");
+const postsController = require("../api/post");
 const { verifyToken } = require("../middlewares/auth");
 
 router.get("/", (req, res) => {
-    res.send("Wellcome to Nodejs and Express!!!");
+  res.send("Wellcome to Nodejs and Express!!!");
 });
+
+// @route GET api/v1/auth/register
+// @des Check if user is login
+// @access public
+router.get("/auth", verifyToken, usersController.getUser);
 
 // @route POST api/v1/auth/register
 // @des Register user

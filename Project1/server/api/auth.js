@@ -5,6 +5,20 @@ const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select("-password");
+    if (!user)
+      return res
+        .status(400)
+        .json({ success: false, massage: "User not found" });
+    res.json({ success: true, user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, massage: "Internal server error" });
+  }
+};
+
 const Register = async (req, res) => {
   const { username, password } = req.body;
   console.log(req.body);
@@ -75,7 +89,7 @@ const Login = async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET
     );
     return res.json({
-      success: false,
+      success: true,
       massage: "Login successfully",
       accessToken,
     });
@@ -88,4 +102,5 @@ const Login = async (req, res) => {
 module.exports = {
   Register,
   Login,
+  getUser,
 };
